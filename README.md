@@ -1,4 +1,4 @@
-# Pro Serv Rayfin Templates
+# ProServ Rayfin Templates
 
 A shared catalog of Microsoft Fabric app templates contributed by SEs. Use this repo to publish, discover, and reuse Fabric solution templates across engagements.
 
