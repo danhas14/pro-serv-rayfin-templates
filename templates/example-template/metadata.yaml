@@ -1,0 +1,9 @@
+name: example-template
+description: >-
+  Placeholder example template showing the expected folder structure and metadata schema.
+owner: dahassel@microsoft.com
+tags:
+  - example
+fabric_item_types:
+  - Report
+last_updated: 2026-09-13

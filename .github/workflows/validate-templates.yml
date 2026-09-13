@@ -1,0 +1,21 @@
+name: Validate templates
+
+on:
+  pull_request:
+    paths:
+      - "templates/**"
+  push:
+    branches: [main]
+    paths:
+      - "templates/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - run: pip install pyyaml
+      - run: python .github/scripts/validate_templates.py

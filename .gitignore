@@ -1,0 +1,10 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Common secret-y files people accidentally drop in Fabric exports
+*.pfx
+*.pem
+.env
+.env.*

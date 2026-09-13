@@ -1,0 +1,29 @@
+name: New template submission
+description: Propose a new Fabric app template to add to the catalog
+title: "[Template] "
+labels: ["new-template"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Template name
+      placeholder: retail-inventory-dashboard
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this template do?
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Owner (alias@microsoft.com)
+    validations:
+      required: true
+  - type: textarea
+    id: fabric-items
+    attributes:
+      label: Fabric item types used
+      placeholder: SemanticModel, Report, Lakehouse, Notebook, Dataflow...
