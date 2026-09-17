@@ -11,6 +11,7 @@ Each subfolder under `templates/` is one self-contained Fabric app template (e.g
 | Template | Description | Owner | Tags |
 |---|---|---|---|
 | [example-template](templates/example-template) | Starter example — replace with real templates | @dahassel_microsoft | example |
+| [contoso-glossary](templates/contoso_glossary) | Searchable, role-aware Fabric business glossary with synthetic sample data | @dahassel_microsoft | fabric-app, rayfin, glossary |
 
 > This table is maintained manually for now. As the catalog grows, we can automate it from each template's `metadata.yaml`.
 

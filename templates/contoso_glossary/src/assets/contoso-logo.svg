@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="220" viewBox="0 0 760 220" fill="none" role="img" aria-label="Contoso logo">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="760" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1328" />
+      <stop offset="1" stop-color="#111A33" />
+    </linearGradient>
+    <linearGradient id="bar" x1="0" y1="190" x2="0" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0C5BEA" />
+      <stop offset="1" stop-color="#58D6FF" />
+    </linearGradient>
+    <linearGradient id="arcA" x1="38" y1="154" x2="286" y2="70" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1246D6" />
+      <stop offset="1" stop-color="#1A7DFF" />
+    </linearGradient>
+    <linearGradient id="arcB" x1="64" y1="170" x2="242" y2="104" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A2EA0" />
+      <stop offset="1" stop-color="#1A5EE7" />
+    </linearGradient>
+    <linearGradient id="word" x1="304" y1="60" x2="694" y2="180" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF5FF" />
+      <stop offset="1" stop-color="#4F8DFF" />
+    </linearGradient>
+  </defs>
+
+  <rect width="760" height="220" fill="url(#bg)" />
+
+  <g transform="translate(34, 22)">
+    <path d="M0 162C48 150 108 112 184 64C212 46 238 37 266 40C224 44 186 70 152 96C104 132 68 156 28 174L0 162Z" fill="url(#arcA)" />
+    <path d="M22 170C68 152 112 128 170 84C120 132 86 160 54 180L22 170Z" fill="url(#arcB)" />
+
+    <g transform="translate(18, 12)">
+      <polygon points="0,138 34,116 34,26 0,48" fill="url(#bar)" opacity="0.85" />
+      <polygon points="44,114 80,92 80,12 44,34" fill="url(#bar)" opacity="0.92" />
+      <polygon points="90,90 126,68 126,0 90,22" fill="url(#bar)" />
+    </g>
+  </g>
+
+  <text x="292" y="134" fill="url(#word)" font-family="Segoe UI, Arial, sans-serif" font-size="82" font-weight="700" letter-spacing="3">CONTOSO</text>
+</svg>

@@ -1,0 +1,13 @@
+name: contoso-glossary
+description: >-
+  Fabric Rayfin app template for a searchable, role-aware business glossary
+  with synthetic sample data and administration experiences.
+owner: dahassel@microsoft.com
+tags:
+  - fabric-app
+  - rayfin
+  - glossary
+  - data-governance
+fabric_item_types:
+  - FabricApp
+last_updated: 2026-09-17
