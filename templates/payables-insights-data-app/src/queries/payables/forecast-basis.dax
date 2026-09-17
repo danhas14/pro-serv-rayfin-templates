@@ -1,0 +1,30 @@
+EVALUATE
+VAR LastDay = CALCULATE(MAX(Payment[InitiatedDate]), REMOVEFILTERS())
+VAR StartDay = LastDay - __WINDOW_DAYS__ + 1
+VAR Window =
+    FILTER(ALL('Date'[Date]), 'Date'[Date] >= StartDay && 'Date'[Date] <= LastDay)
+VAR RecentArrivals =
+    CALCULATE(COUNTROWS('Exception'), REMOVEFILTERS(), 'Exception'[CreatedDate] >= StartDay)
+VAR RecentResolutions =
+    CALCULATE(
+        COUNTROWS('Exception'),
+        REMOVEFILTERS(),
+        'Exception'[IsResolved] = TRUE,
+        'Exception'[ResolvedDate] >= StartDay
+    )
+RETURN
+SUMMARIZECOLUMNS(
+    Window,
+    "WindowDays", __WINDOW_DAYS__,
+    "OpenBacklog", CALCULATE([Open Exceptions], REMOVEFILTERS()),
+    "BreachedNow", CALCULATE([SLA Breached], REMOVEFILTERS()),
+    "ArrivalsPerDay", DIVIDE(RecentArrivals, __WINDOW_DAYS__),
+    "ResolutionsPerDay", DIVIDE(RecentResolutions, __WINDOW_DAYS__),
+    "PaymentValuePerDay", DIVIDE([Payment Value], __WINDOW_DAYS__),
+    "PaymentsPerDay", DIVIDE([Payment Count], __WINDOW_DAYS__),
+    "StpRate", [Straight-Through Rate],
+    "CardAdoption", [Virtual Card Adoption],
+    "RebateOpportunity", [Rebate Opportunity],
+    "AvgResolutionHours", [Avg Resolution Hours],
+    "AvgExceptionValue", DIVIDE([Exception Value at Risk], CALCULATE([Open Exceptions], REMOVEFILTERS()))
+)

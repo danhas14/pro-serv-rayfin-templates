@@ -1,0 +1,16 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "description": "Payment value by rail",
+    "mark": { "type": "bar", "cornerRadiusEnd": 4 },
+    "encoding": {
+        "y": { "field": "PaymentMethod", "type": "nominal", "sort": "-x", "title": null },
+        "x": { "field": "Value", "type": "quantitative", "title": "Payment value" },
+        "color": { "field": "PaymentMethod", "type": "nominal", "legend": null },
+        "tooltip": [
+            { "field": "PaymentMethod", "type": "nominal", "title": "Method" },
+            { "field": "Value", "type": "quantitative", "title": "Value" },
+            { "field": "Payments", "type": "quantitative", "title": "Payments" },
+            { "field": "StpRate", "type": "quantitative", "title": "STP rate", "format": ".1%" }
+        ]
+    }
+}

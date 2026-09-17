@@ -1,0 +1,10 @@
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Exception Category'[Category Name],
+    "OpenExceptions", [Open Exceptions],
+    "Breached", [SLA Breached],
+    "ValueAtRisk", [Exception Value at Risk],
+    "AvgResolutionHours", [Avg Resolution Hours],
+    "Created", [Exceptions Created]
+)
+ORDER BY [OpenExceptions] DESC

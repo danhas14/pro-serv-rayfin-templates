@@ -1,0 +1,19 @@
+EVALUATE
+TOPN(
+    12,
+    SUMMARIZECOLUMNS(
+        Customer[Customer Name],
+        Customer[Industry],
+        Customer[Risk Level],
+        "PaymentValue", [Payment Value],
+        "Payments", [Payment Count],
+        "SuccessRate", [Payment Success Rate],
+        "StpRate", [Straight-Through Rate],
+        "OpenExceptions", [Open Exceptions],
+        "AvgApprovalHours", [Avg Approval Hours],
+        "RebateOpportunity", [Rebate Opportunity]
+    ),
+    [PaymentValue],
+    DESC
+)
+ORDER BY [PaymentValue] DESC

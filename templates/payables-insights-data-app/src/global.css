@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Bridged tokens — kept in `@theme static` so the CSS vars are always
+   emitted, not tree-shaken when no Tailwind utility consumes them.
+   Required because <VegaVisual> and <DataGrid> read these at runtime via
+   `useCssTheme()` and project them into a JS theme object (Vega's SVG output
+   cannot resolve `var()` references). */
+@theme static {
+  --color-brand:            #5b52e0;  /* bar/area fills, button-like brand surfaces */
+  --color-brand-foreground: #5b52e0;  /* line/point marks, branded text & emphasis */
+  --color-hover:            #eef0fc;  /* row/cell hover surface in DataGrid + visuals */
+}
+
+@theme {
+  /* Color tokens — light theme
+     Usage: bg-*, text-*, border-* (e.g. bg-primary text-primary-foreground)
+     Each token has a -foreground pair for text on that surface. */
+  --color-background: #f5f6fc;                                       /* page background */
+  --color-foreground: #16182b;                                       /* default text */
+
+  --color-card: #ffffff;                                             /* card surfaces */
+  --color-card-foreground: #16182b;
+
+  --color-popover: #ffffff;                                          /* popover/dropdown surfaces */
+  --color-popover-foreground: #16182b;
+
+  --color-primary: #5b52e0;                                          /* primary actions & buttons */
+  --color-primary-foreground: #ffffff;
+
+  --color-secondary: #eceefb;                                        /* secondary actions */
+  --color-secondary-foreground: #2a2d4a;
+
+  --color-muted: #eef0f7;                                            /* subtle backgrounds */
+  --color-muted-foreground: #5c6079;                                 /* subdued text */
+
+  --color-accent: #e6e9fb;                                           /* accent highlights */
+  --color-accent-foreground: #2a2d4a;
+
+  --color-destructive: #cf3654;                                      /* errors & destructive actions */
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: #e1e4f0;                                           /* default border */
+  --color-input: #e1e4f0;                                            /* input field borders */
+  --color-ring: #5b52e0;                                             /* focus rings */
+
+  --radius-none: 0;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-4xl: 28px;
+  --radius-5xl: 36px;
+  --radius-6xl: 44px;
+  --radius-full: 9999px;
+  --radius: 12px;
+
+  /* Spacing — 4px grid; use only these tokens, no interpolation. *-nudge = base − 2px.
+     Usage: p-*, m-*, gap-* (e.g. p-400 gap-300) */
+  --spacing-none: 0;
+  --spacing-100-nudge: 2px;
+  --spacing-100: 4px;
+  --spacing-200-nudge: 6px;
+  --spacing-200: 8px;
+  --spacing-300-nudge: 10px;
+  --spacing-300: 12px;
+  --spacing-400: 16px;
+  --spacing-500: 20px;
+  --spacing-600: 24px;
+  --spacing-700: 28px;
+  --spacing-800: 32px;
+
+  /* Font Sizes — 100-based scale 
+     Usage: text-* (e.g. text-300, text-hero-900) */
+  --text-100: 10px;
+  --text-200: 12px;
+  --text-300: 14px;
+  --text-400: 16px;
+  --text-500: 20px;
+  --text-600: 24px;
+  --text-hero-700: 28px;
+  --text-hero-800: 32px;
+  --text-hero-900: 40px;
+  --text-hero-1000: 68px;
+
+  /* Line Heights — paired with font sizes
+     Usage: leading-* (e.g. leading-300) */
+  --leading-100: 14px;
+  --leading-200: 16px;
+  --leading-300: 20px;
+  --leading-400: 22px;
+  --leading-500: 28px;
+  --leading-600: 32px;
+  --leading-hero-700: 36px;
+  --leading-hero-800: 40px;
+  --leading-hero-900: 52px;
+  --leading-hero-1000: 92px;
+
+  /* Font Weights
+     Usage: font-* (e.g. font-semibold) */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Font Families
+     Usage: font-* (e.g. font-heading, font-base) */
+  --font-heading: 'Sora', 'Segoe UI Web (West European)',            /* headings, titles, display text */
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-base: 'Manrope', 'Segoe UI Web (West European)',            /* body text, labels, UI controls */
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-monospace: 'JetBrains Mono', Consolas, 'Courier New', Courier, monospace;  /* code, pre-formatted text */
+  --font-numeric: 'Sora', 'Segoe UI Web (West European)',            /* KPI values, numeric displays */
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Icon Sizes — 100-based scale
+     Usage: icon-size-* custom utility (e.g. icon-size-200) */
+  --icon-size-100: 12px;
+  --icon-size-200: 16px;
+  --icon-size-300: 20px;
+  --icon-size-400: 24px;
+  --icon-size-500: 28px;
+  --icon-size-600: 32px;
+  --icon-size-700: 48px;
+}
+
+@utility icon-size-* {
+  width: --value(--icon-size-*);
+  height: --value(--icon-size-*);
+}
+
+@layer base {
+  .dark {
+    /* Color tokens — dark theme */
+    --color-background: #0c0e1b;
+    --color-foreground: #f2f3fa;
+
+    --color-card: #14172a;
+    --color-card-foreground: #f2f3fa;
+
+    --color-popover: #14172a;
+    --color-popover-foreground: #f2f3fa;
+
+    --color-primary: #8b83ff;
+    --color-primary-foreground: #0c0e1b;
+
+    --color-secondary: #1c2038;
+    --color-secondary-foreground: #e7e9f5;
+
+    --color-muted: #191d31;
+    --color-muted-foreground: #a2a7c2;
+
+    --color-accent: #232849;
+    --color-accent-foreground: #f2f3fa;
+
+    --color-destructive: #f1707b;
+    --color-destructive-foreground: #0c0e1b;
+
+    --color-border: #2a2f4d;
+    --color-input: #2a2f4d;
+    --color-ring: #8b83ff;
+
+    --color-brand:            #6f66ef;
+    --color-brand-foreground: #a79eff;
+    --color-hover:            #232849;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-base);
+  }
+
+  select,
+  input,
+  textarea,
+  button {
+    font-family: inherit;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}

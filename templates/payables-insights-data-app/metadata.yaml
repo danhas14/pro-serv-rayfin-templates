@@ -1,0 +1,15 @@
+name: payables-insights-data-app
+description: >-
+  Fabric Data App for payment operations reporting, guided semantic-model
+  questions, and deterministic what-if forecasting.
+owner: dahassel@microsoft.com
+tags:
+  - fabric-app
+  - data-app
+  - power-bi
+  - accounts-payable
+  - analytics
+fabric_item_types:
+  - FabricApp
+  - SemanticModel
+last_updated: 2026-09-17

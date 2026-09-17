@@ -1,0 +1,14 @@
+EVALUATE
+VAR LastDay = CALCULATE(MAX(Payment[InitiatedDate]), REMOVEFILTERS())
+VAR StartDay = LastDay - __WINDOW_DAYS__ + 1
+VAR Window =
+    FILTER(ALL('Date'[Date]), 'Date'[Date] >= StartDay && 'Date'[Date] <= LastDay)
+RETURN
+SUMMARIZECOLUMNS(
+    'Date'[Date],
+    Window,
+    "PaymentValue", [Payment Value],
+    "PaymentCount", [Payment Count],
+    "Rolling30", [Payment Value Rolling 30D]
+)
+ORDER BY 'Date'[Date] ASC

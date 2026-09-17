@@ -1,0 +1,21 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "description": "Exceptions created versus resolved each day",
+    "transform": [
+        {
+            "fold": ["Created", "Resolved"],
+            "as": ["Series", "Count"]
+        }
+    ],
+    "mark": { "type": "line", "strokeWidth": 2, "point": false },
+    "encoding": {
+        "x": { "field": "FlowDate", "type": "temporal", "title": null },
+        "y": { "field": "Count", "type": "quantitative", "title": "Exceptions" },
+        "color": { "field": "Series", "type": "nominal", "title": null },
+        "tooltip": [
+            { "field": "FlowDate", "type": "temporal", "title": "Date" },
+            { "field": "Series", "type": "nominal", "title": "Series" },
+            { "field": "Count", "type": "quantitative", "title": "Count" }
+        ]
+    }
+}

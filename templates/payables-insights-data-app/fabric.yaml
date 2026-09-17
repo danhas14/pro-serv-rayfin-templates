@@ -1,0 +1,7 @@
+activeProfile: default
+profiles:
+  default:
+    semanticModels:
+      payables:
+        workspaceId: 00000000-0000-0000-0000-000000000000
+        itemId: 00000000-0000-0000-0000-000000000000
