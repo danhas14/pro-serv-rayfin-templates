@@ -1,0 +1,25 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "description": "Daily payment value with a 30-day rolling total",
+    "layer": [
+        {
+            "mark": { "type": "area", "line": false, "opacity": 0.25 },
+            "encoding": {
+                "x": { "field": "PaymentDate", "type": "temporal", "title": null },
+                "y": { "field": "PaymentValue", "type": "quantitative", "title": "Daily value" }
+            }
+        },
+        {
+            "mark": { "type": "line", "strokeWidth": 2 },
+            "encoding": {
+                "x": { "field": "PaymentDate", "type": "temporal" },
+                "y": { "field": "PaymentValue", "type": "quantitative" },
+                "tooltip": [
+                    { "field": "PaymentDate", "type": "temporal", "title": "Date" },
+                    { "field": "PaymentValue", "type": "quantitative", "title": "Value" },
+                    { "field": "PaymentCount", "type": "quantitative", "title": "Payments" }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+EVALUATE
+VAR LastDay = CALCULATE(MAX(Payment[InitiatedDate]), REMOVEFILTERS())
+VAR StartDay = LastDay - __WINDOW_DAYS__ + 1
+VAR Window =
+    FILTER(ALL('Date'[Date]), 'Date'[Date] >= StartDay && 'Date'[Date] <= LastDay)
+RETURN
+SUMMARIZECOLUMNS(
+    'Date'[Date],
+    Window,
+    "Created", [Exceptions Created],
+    "Resolved", [Exceptions Resolved],
+    "Backlog", [Cumulative Backlog]
+)
+ORDER BY 'Date'[Date] ASC

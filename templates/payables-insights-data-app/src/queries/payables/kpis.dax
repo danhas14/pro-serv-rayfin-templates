@@ -1,0 +1,27 @@
+EVALUATE
+VAR LastDay = CALCULATE(MAX(Payment[InitiatedDate]), REMOVEFILTERS())
+VAR StartDay = LastDay - __WINDOW_DAYS__ + 1
+VAR Window =
+    FILTER(ALL('Date'[Date]), 'Date'[Date] >= StartDay && 'Date'[Date] <= LastDay)
+RETURN
+SUMMARIZECOLUMNS(
+    Window,
+    "PaymentValue", [Payment Value],
+    "PaymentCount", [Payment Count],
+    "SuccessRate", [Payment Success Rate],
+    "StpRate", [Straight-Through Rate],
+    "AvgProcessingHours", [Avg Processing Hours],
+    "RebateOpportunity", [Rebate Opportunity],
+    "CardAdoption", [Virtual Card Adoption],
+    "CrossBorderValue", [Cross-Border Value],
+    "ExceptionsCreated", [Exceptions Created],
+    "ExceptionsResolved", [Exceptions Resolved],
+    "OpenExceptions", [Open Exceptions],
+    "HighPriorityOpen", [High Priority Open],
+    "SlaBreached", [SLA Breached],
+    "SlaAttainment", [SLA Attainment],
+    "AvgResolutionHours", [Avg Resolution Hours],
+    "ValueAtRisk", [Exception Value at Risk],
+    "AvgDailyArrivals", [Avg Daily Arrivals],
+    "AvgDailyResolutions", [Avg Daily Resolutions]
+)

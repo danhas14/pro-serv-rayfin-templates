@@ -1,0 +1,24 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "description": "Open exceptions by category, split by service-level state",
+    "transform": [
+        { "calculate": "datum.OpenExceptions - datum.Breached", "as": "Within target" },
+        { "fold": ["Within target", "Breached"], "as": ["State", "Count"] }
+    ],
+    "mark": { "type": "bar" },
+    "encoding": {
+        "y": { "field": "CategoryName", "type": "nominal", "sort": "-x", "title": null },
+        "x": { "field": "Count", "type": "quantitative", "stack": "zero", "title": "Open exceptions" },
+        "color": {
+            "field": "State",
+            "type": "nominal",
+            "title": null,
+            "scale": { "domain": ["Within target", "Breached"] }
+        },
+        "tooltip": [
+            { "field": "CategoryName", "type": "nominal", "title": "Category" },
+            { "field": "State", "type": "nominal", "title": "State" },
+            { "field": "Count", "type": "quantitative", "title": "Exceptions" }
+        ]
+    }
+}

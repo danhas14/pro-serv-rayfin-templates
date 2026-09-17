@@ -1,0 +1,22 @@
+EVALUATE
+TOPN(
+    12,
+    FILTER(
+        SUMMARIZECOLUMNS(
+            Vendor[Vendor Name],
+            Vendor[Country],
+            Vendor[Bank Details Status],
+            "OpenExceptions", [Open Exceptions],
+            "Created", [Exceptions Created],
+            "PaymentValue", [Payment Value],
+            "SuccessRate", [Payment Success Rate],
+            "AvgProcessingHours", [Avg Processing Hours]
+        ),
+        [Created] > 0
+    ),
+    [Created],
+    DESC,
+    [OpenExceptions],
+    DESC
+)
+ORDER BY [Created] DESC

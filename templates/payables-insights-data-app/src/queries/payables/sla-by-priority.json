@@ -1,0 +1,24 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "description": "Open exceptions by priority split by service-level state",
+    "transform": [
+        { "calculate": "datum.OpenExceptions - datum.Breached", "as": "Within target" },
+        { "fold": ["Within target", "Breached"], "as": ["State", "Count"] }
+    ],
+    "mark": { "type": "bar", "cornerRadiusEnd": 3 },
+    "encoding": {
+        "x": { "field": "Priority", "type": "nominal", "title": null },
+        "y": { "field": "Count", "type": "quantitative", "stack": "zero", "title": "Open exceptions" },
+        "color": {
+            "field": "State",
+            "type": "nominal",
+            "title": null,
+            "scale": { "domain": ["Within target", "Breached"] }
+        },
+        "tooltip": [
+            { "field": "Priority", "type": "nominal", "title": "Priority" },
+            { "field": "State", "type": "nominal", "title": "State" },
+            { "field": "Count", "type": "quantitative", "title": "Exceptions" }
+        ]
+    }
+}
