@@ -14,6 +14,18 @@ No real customer, vendor, bank account, card, invoice, employee, or transaction 
 - Offline demo mode with deterministic synthetic data
 - Optional SQL analytics layer and Direct Lake semantic model
 
+<img width="2833" height="1465" alt="image" src="https://github.com/user-attachments/assets/4b397a10-0ce9-40b0-b4e6-eb31c9fc9d15" />
+
+<img width="2835" height="1464" alt="image" src="https://github.com/user-attachments/assets/f7abc993-7c51-4a4f-8c5a-a7e64f635263" />
+
+<img width="2812" height="1480" alt="image" src="https://github.com/user-attachments/assets/14e4dd90-ba1e-45bf-b099-19be33ccb8e8" />
+
+<img width="2782" height="1483" alt="image" src="https://github.com/user-attachments/assets/20b60723-d05b-41a2-ab04-e3d791d81a3a" />
+
+
+
+
+
 ## Prerequisites
 
 - Node.js 20 or later and npm
