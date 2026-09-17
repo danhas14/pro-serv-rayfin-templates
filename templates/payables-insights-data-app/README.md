@@ -13,6 +13,16 @@ All figures shown by the companion Payables Pulse solution are synthetic.
 - Fabric portal embedding and host-mediated authentication
 - Reusable DAX query modules and Vega-Lite specifications
 
+<img width="2306" height="1304" alt="image" src="https://github.com/user-attachments/assets/5dee765b-41ef-471b-924f-5dd534d754fb" />
+
+<img width="2375" height="1276" alt="image" src="https://github.com/user-attachments/assets/a7a38c44-1641-45c0-bf30-d19016f97a4c" />
+
+What if simulation:
+<img width="2258" height="1320" alt="image" src="https://github.com/user-attachments/assets/04f2b8b4-182c-4571-8168-62242dd0f8be" />
+
+
+
+
 ## Prerequisites
 
 - Node.js 20 or later and npm
