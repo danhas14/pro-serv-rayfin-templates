@@ -1,0 +1,302 @@
+table Payment
+	lineageTag: a0000000-0000-4000-8000-000000000100
+	sourceLineageTag: [dbo].[FactPayment]
+
+	measure 'Payment Value' = SUM(Payment[AmountUsd])
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000180
+
+	measure 'Payment Count' = COUNTROWS(Payment)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000181
+
+	measure 'Successful Payments' = CALCULATE([Payment Count], Payment[IsSuccessful] = TRUE)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000182
+
+	measure 'Failed Payments' = CALCULATE([Payment Count], Payment[IsFailed] = TRUE)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000183
+
+	measure 'Payment Success Rate' = DIVIDE([Successful Payments], [Payment Count])
+		formatString: 0.0%
+		lineageTag: a0000000-0000-4000-8000-000000000184
+
+	measure 'Straight-Through Payments' = CALCULATE([Payment Count], Payment[IsStraightThrough] = TRUE)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000185
+
+	measure 'Straight-Through Rate' = DIVIDE([Straight-Through Payments], [Payment Count])
+		formatString: 0.0%
+		lineageTag: a0000000-0000-4000-8000-000000000186
+
+	measure 'Avg Processing Hours' = AVERAGE(Payment[ProcessingHours])
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000187
+
+	measure 'Avg Approval Hours' = AVERAGE(Payment[ApprovalHours])
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000188
+
+	measure 'Rebate Earned' = SUM(Payment[RebateAmount])
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000189
+
+	measure 'Rebate Opportunity' = SUM(Payment[RebateOpportunityUsd])
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-00000000018a
+
+	measure 'Virtual Card Value' = CALCULATE([Payment Value], Payment[PaymentMethod] = "virtual-card")
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-00000000018b
+
+	measure 'Virtual Card Adoption' = DIVIDE(CALCULATE([Payment Count], Payment[PaymentMethod] = "virtual-card"), [Payment Count])
+		formatString: 0.0%
+		lineageTag: a0000000-0000-4000-8000-00000000018c
+
+	measure 'Cross-Border Value' = CALCULATE([Payment Value], Payment[IsCrossBorder] = TRUE)
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-00000000018d
+
+	measure 'Domestic Value' = CALCULATE([Payment Value], Payment[IsCrossBorder] = FALSE)
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-00000000018e
+
+	measure 'Avg Payment Value' = DIVIDE([Payment Value], [Payment Count])
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-00000000018f
+
+	measure 'Payment Value PM' = CALCULATE([Payment Value], DATEADD('Date'[Date], -1, MONTH))
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000190
+
+	measure 'Payment Value MoM %' = DIVIDE([Payment Value] - [Payment Value PM], [Payment Value PM])
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: a0000000-0000-4000-8000-000000000191
+
+	measure 'Payment Value 7D Avg' = ```
+			AVERAGEX(
+			    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -7, DAY),
+			    [Payment Value]
+			)
+			```
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000192
+
+	measure 'Payment Value Rolling 30D' = ```
+			CALCULATE(
+			    [Payment Value],
+			    DATESINPERIOD('Date'[Date], MAX('Date'[Date]), -30, DAY)
+			)
+			```
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000193
+
+	column PaymentId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000101
+		sourceLineageTag: PaymentId
+		summarizeBy: none
+		sourceColumn: PaymentId
+		isHidden
+
+	column 'Payment Reference'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000102
+		sourceLineageTag: PaymentReference
+		summarizeBy: none
+		sourceColumn: PaymentReference
+
+	column InitiatedDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000103
+		sourceLineageTag: InitiatedDate
+		summarizeBy: none
+		sourceColumn: InitiatedDate
+
+	column SettledDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000104
+		sourceLineageTag: SettledDate
+		summarizeBy: none
+		sourceColumn: SettledDate
+
+	column CustomerId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000105
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+		isHidden
+
+	column VendorId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000106
+		sourceLineageTag: VendorId
+		summarizeBy: none
+		sourceColumn: VendorId
+		isHidden
+
+	column InvoiceId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000107
+		sourceLineageTag: InvoiceId
+		summarizeBy: none
+		sourceColumn: InvoiceId
+		isHidden
+
+	column PaymentMethod
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000108
+		sourceLineageTag: PaymentMethod
+		summarizeBy: none
+		sourceColumn: PaymentMethod
+		isHidden
+
+	column 'Payment Method'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000109
+		sourceLineageTag: PaymentMethodLabel
+		summarizeBy: none
+		sourceColumn: PaymentMethodLabel
+
+	column Status
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000010a
+		sourceLineageTag: Status
+		summarizeBy: none
+		sourceColumn: Status
+
+	column Country
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000010b
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+		dataCategory: Country
+
+	column Currency
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000010c
+		sourceLineageTag: Currency
+		summarizeBy: none
+		sourceColumn: Currency
+
+	column Corridor
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000010d
+		sourceLineageTag: Corridor
+		summarizeBy: none
+		sourceColumn: Corridor
+
+	column Amount
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: a0000000-0000-4000-8000-00000000010e
+		sourceLineageTag: Amount
+		summarizeBy: sum
+		sourceColumn: Amount
+
+	column AmountUsd
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: a0000000-0000-4000-8000-00000000010f
+		sourceLineageTag: AmountUsd
+		summarizeBy: sum
+		sourceColumn: AmountUsd
+
+	column RebateAmount
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: a0000000-0000-4000-8000-000000000110
+		sourceLineageTag: RebateAmount
+		summarizeBy: sum
+		sourceColumn: RebateAmount
+		isHidden
+
+	column RebateOpportunityUsd
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: a0000000-0000-4000-8000-000000000111
+		sourceLineageTag: RebateOpportunityUsd
+		summarizeBy: sum
+		sourceColumn: RebateOpportunityUsd
+		isHidden
+
+	column ProcessingHours
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000112
+		sourceLineageTag: ProcessingHours
+		summarizeBy: average
+		sourceColumn: ProcessingHours
+
+	column ApprovalHours
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000113
+		sourceLineageTag: ApprovalHours
+		summarizeBy: average
+		sourceColumn: ApprovalHours
+
+	column 'Attempt Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000114
+		sourceLineageTag: AttemptCount
+		summarizeBy: sum
+		sourceColumn: AttemptCount
+
+	column IsCrossBorder
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000115
+		sourceLineageTag: IsCrossBorder
+		summarizeBy: none
+		sourceColumn: IsCrossBorder
+		isHidden
+
+	column IsStraightThrough
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000116
+		sourceLineageTag: IsStraightThrough
+		summarizeBy: none
+		sourceColumn: IsStraightThrough
+		isHidden
+
+	column IsSuccessful
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000117
+		sourceLineageTag: IsSuccessful
+		summarizeBy: none
+		sourceColumn: IsSuccessful
+		isHidden
+
+	column IsFailed
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000118
+		sourceLineageTag: IsFailed
+		summarizeBy: none
+		sourceColumn: IsFailed
+		isHidden
+
+	column IsRebateEligible
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000119
+		sourceLineageTag: IsRebateEligible
+		summarizeBy: none
+		sourceColumn: IsRebateEligible
+		isHidden
+
+	partition Payment = entity
+		mode: directLake
+		source
+			entityName: FactPayment
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

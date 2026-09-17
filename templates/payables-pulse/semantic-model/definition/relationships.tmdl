@@ -1,0 +1,40 @@
+relationship payment_date
+	fromColumn: Payment.InitiatedDate
+	toColumn: 'Date'.Date
+
+relationship payment_customer
+	fromColumn: Payment.CustomerId
+	toColumn: Customer.CustomerId
+
+relationship payment_vendor
+	fromColumn: Payment.VendorId
+	toColumn: Vendor.VendorId
+
+relationship exception_date
+	fromColumn: 'Exception'.CreatedDate
+	toColumn: 'Date'.Date
+
+relationship exception_resolved_date
+	isActive: false
+	fromColumn: 'Exception'.ResolvedDate
+	toColumn: 'Date'.Date
+
+relationship exception_customer
+	fromColumn: 'Exception'.CustomerId
+	toColumn: Customer.CustomerId
+
+relationship exception_vendor
+	fromColumn: 'Exception'.VendorId
+	toColumn: Vendor.VendorId
+
+relationship exception_specialist
+	fromColumn: 'Exception'.AssignedToId
+	toColumn: Specialist.SpecialistId
+
+relationship exception_resolution
+	fromColumn: 'Exception'.ResolutionCategoryId
+	toColumn: Resolution.ResolutionId
+
+relationship exception_category
+	fromColumn: 'Exception'.ExceptionType
+	toColumn: 'Exception Category'.Code

@@ -1,0 +1,8 @@
+expression 'DirectLake - payables-pulse' =
+		let
+			Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/__FABRIC_WORKSPACE_ID__/__SQL_DATABASE_ITEM_ID__", [HierarchicalNavigation=true])
+		in
+			Source
+	lineageTag: a0000000-0000-4000-8000-000000000001
+
+	annotation PBI_IncludeFutureArtifacts = False

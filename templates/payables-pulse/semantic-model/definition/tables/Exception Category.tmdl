@@ -1,0 +1,73 @@
+table 'Exception Category'
+	lineageTag: a0000000-0000-4000-8000-000000000600
+	sourceLineageTag: [dbo].[ExceptionCategories]
+
+	column CategoryId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000601
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+		isHidden
+
+	column Code
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000602
+		sourceLineageTag: code
+		summarizeBy: none
+		sourceColumn: code
+		isHidden
+
+	column 'Category Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000603
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+		isDefaultLabel
+		sortByColumn: 'Sort Order'
+
+	column Description
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000604
+		sourceLineageTag: description
+		summarizeBy: none
+		sourceColumn: description
+
+	column 'Default Priority'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000605
+		sourceLineageTag: defaultPriority
+		summarizeBy: none
+		sourceColumn: defaultPriority
+
+	column 'Default SLA Hours'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000606
+		sourceLineageTag: defaultSlaHours
+		summarizeBy: none
+		sourceColumn: defaultSlaHours
+
+	column 'Recommended Action'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000607
+		sourceLineageTag: recommendedAction
+		summarizeBy: none
+		sourceColumn: recommendedAction
+
+	column 'Sort Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000608
+		sourceLineageTag: sortOrder
+		summarizeBy: none
+		sourceColumn: sortOrder
+		isHidden
+
+	partition 'Exception Category' = entity
+		mode: directLake
+		source
+			entityName: ExceptionCategories
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

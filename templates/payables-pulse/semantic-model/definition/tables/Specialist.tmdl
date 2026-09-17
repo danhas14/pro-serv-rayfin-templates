@@ -1,0 +1,55 @@
+table Specialist
+	lineageTag: a0000000-0000-4000-8000-000000000500
+	sourceLineageTag: [dbo].[AppUsers]
+
+	column SpecialistId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000501
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+		isHidden
+
+	column 'Specialist Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000502
+		sourceLineageTag: displayName
+		summarizeBy: none
+		sourceColumn: displayName
+		isDefaultLabel
+
+	column Email
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000503
+		sourceLineageTag: email
+		summarizeBy: none
+		sourceColumn: email
+
+	column Team
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000504
+		sourceLineageTag: teamName
+		summarizeBy: none
+		sourceColumn: teamName
+
+	column Role
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000505
+		sourceLineageTag: primaryRole
+		summarizeBy: none
+		sourceColumn: primaryRole
+
+	column 'Is Active'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000506
+		sourceLineageTag: isActive
+		summarizeBy: none
+		sourceColumn: isActive
+
+	partition Specialist = entity
+		mode: directLake
+		source
+			entityName: AppUsers
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

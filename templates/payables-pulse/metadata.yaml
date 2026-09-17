@@ -1,0 +1,16 @@
+name: payables-pulse
+description: >-
+  Fabric Rayfin payment operations control center for invoice and payment
+  exception triage, assignment, resolution, and portfolio health analysis.
+owner: dahassel@microsoft.com
+tags:
+  - fabric-app
+  - rayfin
+  - accounts-payable
+  - payment-operations
+  - semantic-model
+fabric_item_types:
+  - FabricApp
+  - SemanticModel
+  - SQLDatabase
+last_updated: 2026-09-17

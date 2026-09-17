@@ -1,0 +1,133 @@
+table 'Date'
+	lineageTag: a0000000-0000-4000-8000-000000000010
+	sourceLineageTag: [dbo].[DimDate]
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000011
+		sourceLineageTag: Date
+		summarizeBy: none
+		sourceColumn: Date
+		isKey
+
+	column DateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000012
+		sourceLineageTag: DateKey
+		summarizeBy: none
+		sourceColumn: DateKey
+		isHidden
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000013
+		sourceLineageTag: Year
+		summarizeBy: none
+		sourceColumn: Year
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000014
+		sourceLineageTag: Quarter
+		summarizeBy: none
+		sourceColumn: Quarter
+		isHidden
+
+	column 'Quarter Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000015
+		sourceLineageTag: QuarterName
+		summarizeBy: none
+		sourceColumn: QuarterName
+
+	column 'Month Number'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000016
+		sourceLineageTag: MonthNumber
+		summarizeBy: none
+		sourceColumn: MonthNumber
+		isHidden
+
+	column 'Month Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000017
+		sourceLineageTag: MonthName
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: 'Month Number'
+
+	column 'Month Short'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000018
+		sourceLineageTag: MonthShort
+		summarizeBy: none
+		sourceColumn: MonthShort
+		sortByColumn: 'Month Number'
+
+	column 'Year Month Key'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000019
+		sourceLineageTag: YearMonthKey
+		summarizeBy: none
+		sourceColumn: YearMonthKey
+		isHidden
+
+	column 'Month Year'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000001a
+		sourceLineageTag: MonthYear
+		summarizeBy: none
+		sourceColumn: MonthYear
+		sortByColumn: 'Year Month Key'
+
+	column 'Week Start'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-00000000001b
+		sourceLineageTag: WeekStartDate
+		summarizeBy: none
+		sourceColumn: WeekStartDate
+
+	column 'Day Of Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-00000000001c
+		sourceLineageTag: DayOfMonth
+		summarizeBy: none
+		sourceColumn: DayOfMonth
+
+	column 'Day Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000001d
+		sourceLineageTag: DayName
+		summarizeBy: none
+		sourceColumn: DayName
+
+	column 'Day Short'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000001e
+		sourceLineageTag: DayShort
+		summarizeBy: none
+		sourceColumn: DayShort
+
+	column 'Is Weekend'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000001f
+		sourceLineageTag: IsWeekend
+		summarizeBy: none
+		sourceColumn: IsWeekend
+
+	partition 'Date' = entity
+		mode: directLake
+		source
+			entityName: DimDate
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'
