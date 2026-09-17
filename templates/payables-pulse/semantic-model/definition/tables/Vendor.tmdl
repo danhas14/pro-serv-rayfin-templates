@@ -1,0 +1,126 @@
+table Vendor
+	lineageTag: a0000000-0000-4000-8000-000000000400
+	sourceLineageTag: [dbo].[Vendors]
+
+	column VendorId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000401
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+		isHidden
+
+	column 'Vendor Code'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000402
+		sourceLineageTag: vendorCode
+		summarizeBy: none
+		sourceColumn: vendorCode
+
+	column 'Vendor Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000403
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+		isDefaultLabel
+
+	column Category
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000404
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+	column Country
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000405
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+		dataCategory: Country
+
+	column 'Preferred Payment Method'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000406
+		sourceLineageTag: preferredPaymentMethod
+		summarizeBy: none
+		sourceColumn: preferredPaymentMethod
+
+	column 'Bank Details Status'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000407
+		sourceLineageTag: bankDetailsStatus
+		summarizeBy: none
+		sourceColumn: bankDetailsStatus
+
+	column 'Card Eligible'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000408
+		sourceLineageTag: virtualCardEligible
+		summarizeBy: none
+		sourceColumn: virtualCardEligible
+
+	column 'Card Enrolled'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000409
+		sourceLineageTag: virtualCardEnrolled
+		summarizeBy: none
+		sourceColumn: virtualCardEnrolled
+
+	column 'Flagged For Review'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000040a
+		sourceLineageTag: flaggedForReview
+		summarizeBy: none
+		sourceColumn: flaggedForReview
+
+	column 'Avg Days To Pay'
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-00000000040b
+		sourceLineageTag: avgDaysToPay
+		summarizeBy: average
+		sourceColumn: avgDaysToPay
+
+	column 'Failed Payment Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-00000000040c
+		sourceLineageTag: failedPaymentCount
+		summarizeBy: sum
+		sourceColumn: failedPaymentCount
+
+	column 'Delayed Payment Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-00000000040d
+		sourceLineageTag: delayedPaymentCount
+		summarizeBy: sum
+		sourceColumn: delayedPaymentCount
+
+	column 'Duplicate Invoice Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-00000000040e
+		sourceLineageTag: duplicateInvoiceCount
+		summarizeBy: sum
+		sourceColumn: duplicateInvoiceCount
+
+	column 'Exception Recurrence Rate'
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-00000000040f
+		sourceLineageTag: exceptionRecurrenceRate
+		summarizeBy: average
+		sourceColumn: exceptionRecurrenceRate
+
+	partition Vendor = entity
+		mode: directLake
+		source
+			entityName: Vendors
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

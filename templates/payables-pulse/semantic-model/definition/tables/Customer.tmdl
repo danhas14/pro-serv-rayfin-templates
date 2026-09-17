@@ -1,0 +1,93 @@
+table Customer
+	lineageTag: a0000000-0000-4000-8000-000000000300
+	sourceLineageTag: [dbo].[Customers]
+
+	column CustomerId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000301
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+		isHidden
+
+	column 'Customer Code'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000302
+		sourceLineageTag: customerCode
+		summarizeBy: none
+		sourceColumn: customerCode
+
+	column 'Customer Name'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000303
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+		isDefaultLabel
+
+	column Industry
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000304
+		sourceLineageTag: industry
+		summarizeBy: none
+		sourceColumn: industry
+
+	column Country
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000305
+		sourceLineageTag: country
+		summarizeBy: none
+		sourceColumn: country
+		dataCategory: Country
+
+	column Tier
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000306
+		sourceLineageTag: tier
+		summarizeBy: none
+		sourceColumn: tier
+
+	column 'Base Currency'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000307
+		sourceLineageTag: baseCurrency
+		summarizeBy: none
+		sourceColumn: baseCurrency
+
+	column 'Risk Level'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000308
+		sourceLineageTag: riskLevel
+		summarizeBy: none
+		sourceColumn: riskLevel
+
+	column 'Health Score'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000309
+		sourceLineageTag: healthScore
+		summarizeBy: average
+		sourceColumn: healthScore
+
+	column 'Avg Approval Hours (Snapshot)'
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-00000000030a
+		sourceLineageTag: avgApprovalHours
+		summarizeBy: average
+		sourceColumn: avgApprovalHours
+
+	column 'Is Active'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000030b
+		sourceLineageTag: isActive
+		summarizeBy: none
+		sourceColumn: isActive
+
+	partition Customer = entity
+		mode: directLake
+		source
+			entityName: Customers
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

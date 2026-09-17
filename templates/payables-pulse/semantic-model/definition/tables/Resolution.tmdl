@@ -1,0 +1,51 @@
+table Resolution
+	lineageTag: a0000000-0000-4000-8000-000000000700
+	sourceLineageTag: [dbo].[ResolutionCategories]
+
+	column ResolutionId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000701
+		sourceLineageTag: id
+		summarizeBy: none
+		sourceColumn: id
+		isHidden
+
+	column Code
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000702
+		sourceLineageTag: code
+		summarizeBy: none
+		sourceColumn: code
+		isHidden
+
+	column 'Resolution Outcome'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000703
+		sourceLineageTag: name
+		summarizeBy: none
+		sourceColumn: name
+		isDefaultLabel
+		sortByColumn: 'Sort Order'
+
+	column Description
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000704
+		sourceLineageTag: description
+		summarizeBy: none
+		sourceColumn: description
+
+	column 'Sort Order'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000705
+		sourceLineageTag: sortOrder
+		summarizeBy: none
+		sourceColumn: sortOrder
+		isHidden
+
+	partition Resolution = entity
+		mode: directLake
+		source
+			entityName: ResolutionCategories
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'

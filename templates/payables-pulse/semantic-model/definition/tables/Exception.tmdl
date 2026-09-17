@@ -1,0 +1,341 @@
+table 'Exception'
+	lineageTag: a0000000-0000-4000-8000-000000000200
+	sourceLineageTag: [dbo].[FactException]
+
+	measure 'Exceptions Created' = COUNTROWS('Exception')
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000280
+
+	measure 'Exceptions Resolved' = ```
+			CALCULATE(
+			    COUNTROWS('Exception'),
+			    USERELATIONSHIP('Exception'[ResolvedDate], 'Date'[Date]),
+			    'Exception'[IsResolved] = TRUE
+			)
+			```
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000281
+
+	measure 'Open Exceptions' = CALCULATE(COUNTROWS('Exception'), 'Exception'[IsOpen] = TRUE)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000282
+
+	measure 'High Priority Open' = ```
+			CALCULATE(
+			    COUNTROWS('Exception'),
+			    'Exception'[IsOpen] = TRUE,
+			    'Exception'[IsHighPriority] = TRUE
+			)
+			```
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000283
+
+	measure 'SLA Breached' = ```
+			CALCULATE(
+			    COUNTROWS('Exception'),
+			    'Exception'[IsOpen] = TRUE,
+			    'Exception'[IsBreached] = TRUE
+			)
+			```
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-000000000284
+
+	measure 'SLA Attainment' = DIVIDE([Open Exceptions] - [SLA Breached], [Open Exceptions])
+		formatString: 0.0%
+		lineageTag: a0000000-0000-4000-8000-000000000285
+
+	measure 'Avg Resolution Hours' = AVERAGE('Exception'[ResolutionHours])
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000286
+
+	measure 'Median Resolution Hours' = MEDIANX('Exception', 'Exception'[ResolutionHours])
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000287
+
+	measure 'Exception Value at Risk' = CALCULATE(SUM('Exception'[AmountUsd]), 'Exception'[IsOpen] = TRUE)
+		formatString: \$#,0
+		lineageTag: a0000000-0000-4000-8000-000000000288
+
+	measure 'Exception Rate' = DIVIDE([Exceptions Created], [Payment Count])
+		formatString: 0.0%
+		lineageTag: a0000000-0000-4000-8000-000000000289
+
+	measure 'Escalated Exceptions' = CALCULATE(COUNTROWS('Exception'), 'Exception'[IsEscalated] = TRUE)
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-00000000028a
+
+	measure 'Net Backlog Change' = [Exceptions Created] - [Exceptions Resolved]
+		formatString: +#,0;-#,0;0
+		lineageTag: a0000000-0000-4000-8000-00000000028b
+
+	measure 'Cumulative Backlog' = ```
+			VAR MaxDate = MAX('Date'[Date])
+			VAR CreatedToDate =
+			    CALCULATE(
+			        COUNTROWS('Exception'),
+			        REMOVEFILTERS('Date'),
+			        'Exception'[CreatedDate] <= MaxDate
+			    )
+			VAR ResolvedToDate =
+			    CALCULATE(
+			        COUNTROWS('Exception'),
+			        REMOVEFILTERS('Date'),
+			        'Exception'[IsResolved] = TRUE,
+			        'Exception'[ResolvedDate] <= MaxDate
+			    )
+			RETURN CreatedToDate - ResolvedToDate
+			```
+		formatString: #,0
+		lineageTag: a0000000-0000-4000-8000-00000000028c
+
+	measure 'Avg Daily Arrivals' = ```
+			DIVIDE(
+			    [Exceptions Created],
+			    CALCULATE(DISTINCTCOUNT('Date'[Date]), ALLSELECTED('Date'))
+			)
+			```
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-00000000028d
+
+	measure 'Avg Daily Resolutions' = ```
+			DIVIDE(
+			    [Exceptions Resolved],
+			    CALCULATE(DISTINCTCOUNT('Date'[Date]), ALLSELECTED('Date'))
+			)
+			```
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-00000000028e
+
+	column ExceptionId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000201
+		sourceLineageTag: ExceptionId
+		summarizeBy: none
+		sourceColumn: ExceptionId
+		isHidden
+
+	column 'Exception Code'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000202
+		sourceLineageTag: ExceptionCode
+		summarizeBy: none
+		sourceColumn: ExceptionCode
+
+	column CreatedDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000203
+		sourceLineageTag: CreatedDate
+		summarizeBy: none
+		sourceColumn: CreatedDate
+
+	column ResolvedDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000204
+		sourceLineageTag: ResolvedDate
+		summarizeBy: none
+		sourceColumn: ResolvedDate
+
+	column SlaDueDate
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: a0000000-0000-4000-8000-000000000205
+		sourceLineageTag: SlaDueDate
+		summarizeBy: none
+		sourceColumn: SlaDueDate
+
+	column CustomerId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000206
+		sourceLineageTag: CustomerId
+		summarizeBy: none
+		sourceColumn: CustomerId
+		isHidden
+
+	column VendorId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000207
+		sourceLineageTag: VendorId
+		summarizeBy: none
+		sourceColumn: VendorId
+		isHidden
+
+	column AssignedToId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000208
+		sourceLineageTag: AssignedToId
+		summarizeBy: none
+		sourceColumn: AssignedToId
+		isHidden
+
+	column ResolutionCategoryId
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000209
+		sourceLineageTag: ResolutionCategoryId
+		summarizeBy: none
+		sourceColumn: ResolutionCategoryId
+		isHidden
+
+	column ExceptionType
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000020a
+		sourceLineageTag: ExceptionType
+		summarizeBy: none
+		sourceColumn: ExceptionType
+		isHidden
+
+	column Priority
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000020b
+		sourceLineageTag: Priority
+		summarizeBy: none
+		sourceColumn: Priority
+		sortByColumn: 'Priority Rank'
+
+	column 'Priority Rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-00000000020c
+		sourceLineageTag: PriorityRank
+		summarizeBy: none
+		sourceColumn: PriorityRank
+		isHidden
+
+	column Status
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000020d
+		sourceLineageTag: Status
+		summarizeBy: none
+		sourceColumn: Status
+
+	column 'SLA Risk'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000020e
+		sourceLineageTag: SlaRisk
+		summarizeBy: none
+		sourceColumn: SlaRisk
+
+	column 'Payment Method'
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-00000000020f
+		sourceLineageTag: PaymentMethod
+		summarizeBy: none
+		sourceColumn: PaymentMethod
+
+	column Country
+		dataType: string
+		lineageTag: a0000000-0000-4000-8000-000000000210
+		sourceLineageTag: Country
+		summarizeBy: none
+		sourceColumn: Country
+		dataCategory: Country
+
+	column AmountUsd
+		dataType: decimal
+		formatString: \$#,0.00
+		lineageTag: a0000000-0000-4000-8000-000000000211
+		sourceLineageTag: AmountUsd
+		summarizeBy: sum
+		sourceColumn: AmountUsd
+
+	column 'SLA Target Hours'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000212
+		sourceLineageTag: SlaTargetHours
+		summarizeBy: none
+		sourceColumn: SlaTargetHours
+
+	column ResolutionHours
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000213
+		sourceLineageTag: ResolutionHours
+		summarizeBy: average
+		sourceColumn: ResolutionHours
+
+	column 'Age Hours'
+		dataType: decimal
+		formatString: #,0.0
+		lineageTag: a0000000-0000-4000-8000-000000000214
+		sourceLineageTag: AgeHours
+		summarizeBy: average
+		sourceColumn: AgeHours
+
+	column 'Retry Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000215
+		sourceLineageTag: RetryCount
+		summarizeBy: sum
+		sourceColumn: RetryCount
+
+	column 'Reopen Count'
+		dataType: int64
+		formatString: 0
+		lineageTag: a0000000-0000-4000-8000-000000000216
+		sourceLineageTag: ReopenCount
+		summarizeBy: sum
+		sourceColumn: ReopenCount
+
+	column IsOpen
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000217
+		sourceLineageTag: IsOpen
+		summarizeBy: none
+		sourceColumn: IsOpen
+		isHidden
+
+	column IsResolved
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000218
+		sourceLineageTag: IsResolved
+		summarizeBy: none
+		sourceColumn: IsResolved
+		isHidden
+
+	column IsHighPriority
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-000000000219
+		sourceLineageTag: IsHighPriority
+		summarizeBy: none
+		sourceColumn: IsHighPriority
+		isHidden
+
+	column IsBreached
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000021a
+		sourceLineageTag: IsBreached
+		summarizeBy: none
+		sourceColumn: IsBreached
+		isHidden
+
+	column IsEscalated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000021b
+		sourceLineageTag: IsEscalated
+		summarizeBy: none
+		sourceColumn: IsEscalated
+		isHidden
+
+	column IsCrossBorder
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a0000000-0000-4000-8000-00000000021c
+		sourceLineageTag: IsCrossBorder
+		summarizeBy: none
+		sourceColumn: IsCrossBorder
+		isHidden
+
+	partition 'Exception' = entity
+		mode: directLake
+		source
+			entityName: FactException
+			schemaName: dbo
+			expressionSource: 'DirectLake - payables-pulse'
