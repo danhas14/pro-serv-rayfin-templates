@@ -11,6 +11,14 @@ Contoso Glossary is a reusable Microsoft Fabric Rayfin app template for discover
 - Editor and viewer role behavior
 - Responsive light and dark themes
 
+<img width="2819" height="1461" alt="image" src="https://github.com/user-attachments/assets/4d6fd277-1b81-4db6-a607-747536d5e317" />
+
+<img width="2799" height="1452" alt="image" src="https://github.com/user-attachments/assets/c39d33c0-6a60-4579-8745-f027fdeea5f7" />
+
+<img width="2821" height="1464" alt="image" src="https://github.com/user-attachments/assets/cd8e0ac8-d7dd-4a1a-ab24-efb124255dda" />
+
+
+
 ## Prerequisites
 
 - Node.js 20 or later
