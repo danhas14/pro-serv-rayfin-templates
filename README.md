@@ -6,6 +6,8 @@ A shared catalog of Microsoft Fabric app templates contributed by SEs. Use this 
 
 Each subfolder under `templates/` is one self-contained Fabric app template (e.g., a Power BI report + semantic model, a Dataflow, a notebook-based pipeline, or a full Fabric workspace export) along with documentation describing what it does and how to deploy it.
 
+**Please add screenshots of your apps!
+
 ## Browsing templates
 
 | Template | Description | Owner | Tags |
