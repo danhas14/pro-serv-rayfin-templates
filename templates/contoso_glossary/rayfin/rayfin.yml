@@ -10,6 +10,7 @@ services:
       enabled: true
     allowedRedirectUris:
       - http://localhost:5173
+      - https://royal-shrub-1dedb858f9-centralus.webapp.fabricapps.net
   data:
     enabled: true
     dialect: mssql

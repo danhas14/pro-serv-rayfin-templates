@@ -8,6 +8,7 @@ services:
       enabled: true
     allowedRedirectUris:
       - http://localhost:5173
+      - https://free-surf-4a5e3fec48-centralus.webapp.fabricapps.net
   data:
     enabled: false
   storage:

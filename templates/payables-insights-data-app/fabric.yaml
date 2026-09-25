@@ -3,5 +3,5 @@ profiles:
   default:
     semanticModels:
       payables:
-        workspaceId: 00000000-0000-0000-0000-000000000000
-        itemId: 00000000-0000-0000-0000-000000000000
+        workspaceId: 3cc7b398-17c0-48ec-8b43-a41ab99bc19b
+        itemId: acdcdcd8-7347-432f-b318-c8e2db9f546f
