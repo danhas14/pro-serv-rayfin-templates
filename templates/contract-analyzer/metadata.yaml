@@ -1,0 +1,23 @@
+name: contract-analyzer
+description: >-
+  Fabric App that extracts structured fields from contracts with Azure AI
+  Content Understanding and answers questions about them with a Foundry model.
+  All AI and database calls run server-side through a Python Fabric User Data
+  Function on short-lived delegated user tokens, so no secrets or AI endpoints
+  ever reach the browser. Documents and extractions are stored in a SQL database
+  in Fabric with row-level security scoping each contract to its uploader. Large
+  contracts are analyzed asynchronously (start + poll) to stay under the Fabric
+  function execution limit.
+owner: your-alias@microsoft.com
+tags:
+  - fabric-app
+  - rayfin
+  - content-understanding
+  - foundry
+  - document-intelligence
+  - user-data-functions
+fabric_item_types:
+  - FabricApp
+  - UserDataFunction
+  - SQLDatabase
+last_updated: 2026-09-28

@@ -1,0 +1,31 @@
+id: contract-analyzer-app-v2
+name: Contract_Analyzer_App_v2
+version: 1.0.0
+services:
+  auth:
+    enabled: true
+    fabric:
+      enabled: true
+    # Email/password sign-in is a local-development affordance. Leaving it on
+    # for a deployed app means anyone who loads the site can self-register
+    # against the backend using the publishable key that ships in the bundle.
+    # Deployed Fabric apps authenticate with Fabric SSO (Entra) only.
+    password:
+      enabled: false
+    allowedRedirectUris:
+      - http://localhost:5173
+      # Replace with your deployed Fabric hosting URL; must match the SPA
+      # redirect URI on the Entra registration.
+      - https://your-fabric-hosting-url
+  data:
+    enabled: true
+    dialect: mssql
+  staticHosting:
+    enabled: true
+    folder: dist
+    buildCommand: npm run build:fabric
+    indexDocument: index.html
+  storage:
+    enabled: false
+  functions:
+    enabled: false
