@@ -11,11 +11,20 @@ Contoso Glossary is a reusable Microsoft Fabric Rayfin app template for discover
 - Editor and viewer role behavior
 - Responsive light and dark themes
 
-<img width="2819" height="1461" alt="image" src="https://github.com/user-attachments/assets/4d6fd277-1b81-4db6-a607-747536d5e317" />
+<img width="1831" height="841" alt="image" src="https://github.com/user-attachments/assets/0951e959-dcaf-4354-b3dd-2504fdf9d036" />
 
-<img width="2799" height="1452" alt="image" src="https://github.com/user-attachments/assets/c39d33c0-6a60-4579-8745-f027fdeea5f7" />
+Separate permissions based on who can edit terms. Terms are saved to the Fabric SQL Database.
 
-<img width="2821" height="1464" alt="image" src="https://github.com/user-attachments/assets/cd8e0ac8-d7dd-4a1a-ab24-efb124255dda" />
+<img width="1312" height="892" alt="image" src="https://github.com/user-attachments/assets/400a73e7-606e-4b0f-a6d2-4f9f05306fcf" />
+
+Edit terms with an AI assistance feature for definition and synonyms:
+
+<img width="1407" height="834" alt="image" src="https://github.com/user-attachments/assets/ac50d144-721b-4d0c-9e93-919e236ab2e1" />
+
+Add and edit categories:
+
+<img width="1437" height="708" alt="image" src="https://github.com/user-attachments/assets/8dd3101f-f064-4ab9-b6e6-4c43399b06c2" />
+
 
 
 
