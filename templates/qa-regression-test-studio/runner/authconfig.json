@@ -1,0 +1,25 @@
+{
+  "_comment": "Easy Auth for the Container App runner. Replace CLIENT_ID and TENANT_ID with your own values, then apply with: az rest --method put --url https://management.azure.com/subscriptions/<SUB>/resourceGroups/<RG>/providers/Microsoft.App/containerApps/<APP>/authConfigs/current?api-version=2024-03-01 --body @authconfig.json",
+  "properties": {
+    "platform": { "enabled": true },
+    "globalValidation": {
+      "unauthenticatedClientAction": "Return401",
+      "excludedPaths": ["/health"]
+    },
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "enabled": true,
+        "registration": {
+          "clientId": "YOUR-ENTRA-CLIENT-ID",
+          "openIdIssuer": "https://login.microsoftonline.com/YOUR-TENANT-ID/v2.0"
+        },
+        "validation": {
+          "allowedAudiences": [
+            "YOUR-ENTRA-CLIENT-ID",
+            "api://YOUR-ENTRA-CLIENT-ID"
+          ]
+        }
+      }
+    }
+  }
+}

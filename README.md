@@ -16,6 +16,7 @@ Each subfolder under `templates/` is one self-contained Fabric app template (e.g
 | [contoso-glossary](templates/contoso_glossary) | Searchable, role-aware Fabric business glossary with synthetic sample data | @dahassel_microsoft | fabric-app, rayfin, glossary |
 | [payables-pulse](templates/payables-pulse) | Payment operations control center with synthetic data and an optional semantic model | @dahassel_microsoft | fabric-app, rayfin, accounts-payable |
 | [payables-insights-data-app](templates/payables-insights-data-app) | Fabric Data App for payment operations analytics, guided DAX questions, and forecasting | @dahassel_microsoft | fabric-app, data-app, power-bi |
+| [qa-regression-test-studio](templates/qa-regression-test-studio) | No-code regression testing for web apps — plain-language steps, Foundry browser agent or Playwright container, screenshot evidence, and cron scheduling | @dahassel_microsoft | fabric-app, rayfin, test-automation, playwright |
 
 > This table is maintained manually for now. As the catalog grows, we can automate it from each template's `metadata.yaml`.
 
