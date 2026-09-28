@@ -1,0 +1,26 @@
+id: regression-test-studio-app
+name: Regression_Test_Studio_App
+version: 1.0.0
+services:
+  auth:
+    enabled: true
+    fabric:
+      enabled: true
+    password:
+      enabled: true
+    allowedRedirectUris:
+      - http://localhost:5173
+      # Add your deployed hosting origin here after the first `rayfin up`,
+      # e.g. https://<generated-name>-<region>.webapp.fabricapps.net
+  data:
+    enabled: true
+    dialect: mssql
+  staticHosting:
+    enabled: true
+    folder: dist
+    buildCommand: npm run build:fabric
+    indexDocument: index.html
+  storage:
+    enabled: false
+  functions:
+    enabled: false

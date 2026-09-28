@@ -1,0 +1,20 @@
+name: qa-regression-test-studio
+description: >-
+  No-code regression testing for web applications. Business analysts author
+  tests as plain-language steps; runs execute either through a Foundry browser
+  automation agent or a Container App running Playwright, with per-step
+  screenshots captured to OneLake as evidence. Includes cron scheduling,
+  AI-generated plain-language failure explanations, and Key Vault backed
+  credentials for sites that require a sign-in.
+owner: your-alias@microsoft.com
+tags:
+  - fabric-app
+  - rayfin
+  - quality-engineering
+  - test-automation
+  - playwright
+  - foundry-agent
+fabric_item_types:
+  - FabricApp
+  - Lakehouse
+last_updated: 2026-09-28
