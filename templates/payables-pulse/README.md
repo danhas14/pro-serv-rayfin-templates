@@ -14,13 +14,17 @@ No real customer, vendor, bank account, card, invoice, employee, or transaction 
 - Offline demo mode with deterministic synthetic data
 - Optional SQL analytics layer and Direct Lake semantic model
 
-<img width="2833" height="1465" alt="image" src="https://github.com/user-attachments/assets/4b397a10-0ce9-40b0-b4e6-eb31c9fc9d15" />
+<img width="1851" height="919" alt="image" src="https://github.com/user-attachments/assets/a6bfa6b9-4cf3-459b-93fa-305734779261" />
 
-<img width="2835" height="1464" alt="image" src="https://github.com/user-attachments/assets/f7abc993-7c51-4a4f-8c5a-a7e64f635263" />
+<img width="1832" height="899" alt="image" src="https://github.com/user-attachments/assets/92463851-1248-4c23-93fa-212ee7e2424f" />
 
-<img width="2812" height="1480" alt="image" src="https://github.com/user-attachments/assets/14e4dd90-ba1e-45bf-b099-19be33ccb8e8" />
+Shows updates capabilities as well:
 
-<img width="2782" height="1483" alt="image" src="https://github.com/user-attachments/assets/20b60723-d05b-41a2-ab04-e3d791d81a3a" />
+<img width="1783" height="839" alt="image" src="https://github.com/user-attachments/assets/1092fa24-86b6-4149-a88b-e369b3503a3d" />
+
+<img width="1823" height="913" alt="image" src="https://github.com/user-attachments/assets/97576a19-d1ed-4790-8d8c-aab694a27ec6" />
+
+
 
 
 
