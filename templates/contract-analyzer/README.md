@@ -11,6 +11,12 @@ entirely on short-lived delegated tokens for the signed-in user.
 
 See [`docs/SETUP.md`](docs/SETUP.md) for deployment and the security model.
 
+<img width="1700" height="840" alt="image" src="https://github.com/user-attachments/assets/8d85dbd4-5e12-4486-9eab-3217f9bc7e48" />
+
+Previously parsed contracts are stored in the Fabric SQL database. File upload tool can upload from your local computer or use a SharePoint document location. The SharePoint option allows for much larger document sizes (> 50 MB).
+
+<img width="1044" height="833" alt="image" src="https://github.com/user-attachments/assets/9262833a-7a97-4bd8-b4ec-a4d78a9a947a" />
+
 ---
 
 ## Layout
