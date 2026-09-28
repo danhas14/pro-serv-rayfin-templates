@@ -13,14 +13,17 @@ All figures shown by the companion Payables Pulse solution are synthetic.
 - Fabric portal embedding and host-mediated authentication
 - Reusable DAX query modules and Vega-Lite specifications
 
-<img width="2306" height="1304" alt="image" src="https://github.com/user-attachments/assets/5dee765b-41ef-471b-924f-5dd534d754fb" />
+<img width="1160" height="828" alt="image" src="https://github.com/user-attachments/assets/c6cbf265-2901-4f22-a30e-41aa9ebaa04b" />
 
-<img width="2375" height="1276" alt="image" src="https://github.com/user-attachments/assets/a7a38c44-1641-45c0-bf30-d19016f97a4c" />
+Simulated Chat on your Data:
 
-What if simulation:
-<img width="2258" height="1320" alt="image" src="https://github.com/user-attachments/assets/04f2b8b4-182c-4571-8168-62242dd0f8be" />
+<img width="1162" height="623" alt="image" src="https://github.com/user-attachments/assets/5ef11636-2dec-4510-a700-663eec768490" />
 
+<img width="1163" height="844" alt="image" src="https://github.com/user-attachments/assets/192de284-063d-4219-8f34-d27fa2829085" />
 
+What-if analysis:
+
+<img width="1154" height="837" alt="image" src="https://github.com/user-attachments/assets/17874c34-9e09-40ee-a38c-1d609d367260" />
 
 
 ## Prerequisites
