@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Operations-center surfaces: deep navy, lifted panels, hairline borders. */
+  --color-ink-950: #05080f;
+  --color-ink-900: #080d1a;
+  --color-ink-850: #0b1222;
+  --color-ink-800: #0f182b;
+  --color-ink-750: #141f36;
+  --color-ink-700: #1b2942;
+  --color-ink-600: #27384f;
+
+  --color-haze-100: #eaf1fb;
+  --color-haze-300: #a7b8d4;
+  --color-haze-400: #7e91b1;
+  --color-haze-500: #5d6f8d;
+
+  /* Microsoft Fabric accent ramp. */
+  --color-fabric-300: #7cc3ff;
+  --color-fabric-400: #3aa0ff;
+  --color-fabric-500: #118dff;
+  --color-fabric-600: #0f6cbd;
+  --color-fabric-700: #0b4f8c;
+
+  /* Operational status ramp: normal → elevated → staffing risk → critical. */
+  --color-status-normal: #2ee07a;
+  --color-status-elevated: #f3c623;
+  --color-status-risk: #ff8c3a;
+  --color-status-critical: #ff4d5e;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-ink-700);
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-ink-950);
+    color: var(--color-haze-100);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Slim, low-contrast scrollbars so panels read as instrument surfaces. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-ink-600) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-ink-600);
+    border-radius: 9999px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@layer components {
+  /* Shared panel chrome: hairline border, inner highlight, soft drop shadow. */
+  .ops-panel {
+    background-image: linear-gradient(
+      160deg,
+      rgb(20 31 54 / 0.9),
+      rgb(8 13 26 / 0.92)
+    );
+    border: 1px solid var(--color-ink-700);
+    border-radius: 0.875rem;
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.04),
+      0 18px 40px -24px rgb(0 0 0 / 0.9);
+  }
+
+  .ops-grid-backdrop {
+    background-image:
+      linear-gradient(rgb(17 141 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(17 141 255 / 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes ops-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes ops-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

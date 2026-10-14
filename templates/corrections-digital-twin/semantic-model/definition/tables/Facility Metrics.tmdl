@@ -1,0 +1,116 @@
+/// Facility-wide monthly roll-up from the corrections management system. These totals span the entire complex and are therefore larger than the sum of the individually modelled buildings.
+table 'Facility Metrics'
+
+	/// Foreign key to the Month dimension.
+	column 'Month Key'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Month Key
+
+	/// Facility-wide inmate population at month end, covering the whole complex.
+	column 'Population Count'
+		dataType: int64
+		isHidden
+		summarizeBy: sum
+		sourceColumn: Population Count
+
+	/// Facility-wide officer strength at month end, including relief and perimeter posts.
+	column 'Officer Count'
+		dataType: int64
+		isHidden
+		summarizeBy: sum
+		sourceColumn: Officer Count
+
+	/// Facility-wide reportable incidents recorded during the month.
+	column 'Incident Count'
+		dataType: int64
+		isHidden
+		summarizeBy: sum
+		sourceColumn: Incident Count
+
+	/// Rated design capacity of the complex, the denominator for the facility occupancy rate.
+	column 'Design Capacity Count'
+		dataType: int64
+		isHidden
+		summarizeBy: sum
+		sourceColumn: Design Capacity Count
+
+	/// Facility-wide inmate population at the latest month in context. Spans the entire complex, so it exceeds the sum of the individually modelled buildings.
+	measure 'Facility Population' =
+			VAR LastMonth = MAX ( 'Month'[Month Key] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Facility Metrics'[Population Count] ),
+			        REMOVEFILTERS ( 'Month' ),
+			        'Month'[Month Key] = LastMonth
+			    )
+		formatString: #,0
+		displayFolder: Facility
+
+	/// Facility-wide officer strength at the latest month in context, including relief and perimeter posts.
+	measure 'Facility Officers' =
+			VAR LastMonth = MAX ( 'Month'[Month Key] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Facility Metrics'[Officer Count] ),
+			        REMOVEFILTERS ( 'Month' ),
+			        'Month'[Month Key] = LastMonth
+			    )
+		formatString: #,0
+		displayFolder: Facility
+
+	/// Facility-wide reportable incidents recorded during the latest month in context.
+	measure 'Facility Incidents' =
+			VAR LastMonth = MAX ( 'Month'[Month Key] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Facility Metrics'[Incident Count] ),
+			        REMOVEFILTERS ( 'Month' ),
+			        'Month'[Month Key] = LastMonth
+			    )
+		formatString: #,0
+		displayFolder: Facility
+
+	/// Rated design capacity of the complex at the latest month in context.
+	measure 'Facility Design Capacity' =
+			VAR LastMonth = MAX ( 'Month'[Month Key] )
+			RETURN
+			    CALCULATE (
+			        SUM ( 'Facility Metrics'[Design Capacity Count] ),
+			        REMOVEFILTERS ( 'Month' ),
+			        'Month'[Month Key] = LastMonth
+			    )
+		formatString: #,0
+		displayFolder: Facility
+
+	/// Facility-wide population as a share of rated design capacity. The headline occupancy rate reported to district command.
+	measure 'Facility Occupancy Rate' = DIVIDE ( [Facility Population], [Facility Design Capacity] )
+		formatString: 0.0%
+		displayFolder: Facility
+
+	/// Facility-wide supervision load: inmates per correctional officer across the whole complex.
+	measure 'Facility Inmates per Officer' = DIVIDE ( [Facility Population], [Facility Officers] )
+		formatString: 0.00
+		displayFolder: Facility
+
+	partition 'Facility Metrics' = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [#"Month Key" = Int64.Type, #"Population Count" = Int64.Type, #"Officer Count" = Int64.Type, #"Incident Count" = Int64.Type, #"Design Capacity Count" = Int64.Type],
+						{
+						{1, 4102, 641, 82, 5175},
+						{2, 4138, 638, 79, 5175},
+						{3, 4205, 635, 88, 5175},
+						{4, 4260, 632, 93, 5175},
+						{5, 4344, 628, 98, 5175},
+						{6, 4410, 622, 91, 5175},
+						{7, 4515, 620, 107, 5175},
+						{8, 4693, 618, 116, 5175},
+						{9, 4812, 615, 121, 5175}
+						}
+					)
+				in
+					Source

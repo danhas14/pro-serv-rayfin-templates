@@ -1,0 +1,29 @@
+id: corrections-digital-twin
+name: Corrections Digital Twin
+version: 1.0.0
+# Set your target Fabric workspace, or pass `--workspace <name>` to `rayfin up`.
+# Without one of the two, the CLI provisions a brand-new workspace.
+workspace: REPLACE_WITH_YOUR_WORKSPACE_NAME
+services:
+  auth:
+    enabled: true
+    fabric:
+      enabled: true
+    password:
+      enabled: false
+    # `rayfin up` appends your generated hosting URL here automatically on deploy.
+    allowedRedirectUris:
+      - http://localhost:5173
+      - http://127.0.0.1:5173
+  data:
+    enabled: false
+  storage:
+    enabled: false
+  staticHosting:
+    enabled: true
+    folder: dist
+    buildCommand: npm run build:fabric
+    indexDocument: index.html
+    assetAccess: protected
+  functions:
+    enabled: false

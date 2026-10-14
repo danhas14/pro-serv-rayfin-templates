@@ -1,0 +1,19 @@
+name: corrections-digital-twin
+description: >-
+  Fabric Rayfin corrections operations center: an interactive aerial facility
+  map with per-building hotspots, capacity and staffing telemetry, nine periods
+  of history, predictive alerts, and a grounded natural-language Operations
+  Assistant over a Power BI semantic model.
+owner: dahassel@microsoft.com
+tags:
+  - fabric-app
+  - rayfin
+  - digital-twin
+  - public-safety
+  - corrections
+  - semantic-model
+  - operations-center
+fabric_item_types:
+  - FabricApp
+  - SemanticModel
+last_updated: 2026-10-14

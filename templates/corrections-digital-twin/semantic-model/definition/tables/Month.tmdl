@@ -1,0 +1,51 @@
+/// Reporting-period calendar at monthly grain covering the trailing reporting periods.
+table Month
+
+	/// Sequential reporting-period number. Sorts the month name chronologically.
+	column 'Month Key'
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Month Key
+
+	/// Full month name of the reporting period.
+	column Month
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month
+		sortByColumn: 'Month Key'
+
+	/// Three-letter month abbreviation used as the x-axis label on trend charts.
+	column 'Month Abbreviation'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Month Abbreviation
+		sortByColumn: 'Month Key'
+
+	/// First day of the reporting period.
+	column 'Month Start Date'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: Month Start Date
+
+	partition Month = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [#"Month Key" = Int64.Type, #"Month" = text, #"Month Abbreviation" = text, #"Month Start Date" = text],
+						{
+						{1, "January", "Jan", "2026-01-01"},
+						{2, "February", "Feb", "2026-02-01"},
+						{3, "March", "Mar", "2026-03-01"},
+						{4, "April", "Apr", "2026-04-01"},
+						{5, "May", "May", "2026-05-01"},
+						{6, "June", "Jun", "2026-06-01"},
+						{7, "July", "Jul", "2026-07-01"},
+						{8, "August", "Aug", "2026-08-01"},
+						{9, "September", "Sep", "2026-09-01"}
+						}
+					)
+				in
+					Table.TransformColumnTypes(Source, {{"Month Start Date", type date}})
