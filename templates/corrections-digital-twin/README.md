@@ -8,7 +8,10 @@ summary, and a grounded natural-language Operations Assistant.
 All operational figures are queried from a Power BI **semantic model** that ships
 with this template. Sign-in is Fabric SSO (Entra ID) only.
 
-![Facility overview](docs/images/01-overview.png)
+<img width="1327" height="824" alt="image" src="https://github.com/user-attachments/assets/1b332fe9-7f82-45d7-9a7c-1bf45a538d27" />
+
+<img width="1333" height="833" alt="image" src="https://github.com/user-attachments/assets/408f2bf7-a4e5-4bd4-9b16-e05c83a7ce31" />
+
 
 > **Synthetic data.** North Valley Correctional Complex is fictional and every
 > figure is invented for demonstration. No real facility or offender data is used.
