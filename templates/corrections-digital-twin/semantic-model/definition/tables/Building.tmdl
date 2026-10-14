@@ -1,0 +1,110 @@
+/// One row per physical structure modelled in the digital twin, including its rated capacity and current operational status.
+table Building
+
+	/// Stable slug identifier used to join building metrics and to key the map overlay.
+	column 'Building ID'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Building ID
+
+	/// Full name of the structure as used in operational reporting.
+	column Building
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Building
+
+	/// Abbreviated label used on the facility map and in narrow table columns.
+	column 'Short Name'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Short Name
+
+	/// Functional classification, for example Medium Security Housing or Healthcare. Determines the supervision ratio target.
+	column 'Building Type'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Building Type
+
+	/// Rated bed capacity. Hidden in favour of the Rated Capacity measure.
+	column Capacity
+		dataType: int64
+		isHidden
+		summarizeBy: sum
+		sourceColumn: Capacity
+
+	/// Current status: Normal, Elevated Risk, Over Capacity or Critical.
+	column 'Operational Status'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Operational Status
+
+	/// True when the building holds assigned beds. Non-residential buildings report inmates present rather than housed.
+	column 'Is Residential'
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: Is Residential
+
+	/// Operator-facing commentary shown in the building detail panel.
+	column 'Operational Note'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Operational Note
+
+	/// Total rated bed capacity of the buildings in scope.
+	measure 'Rated Capacity' = SUM ( 'Building'[Capacity] )
+		formatString: #,0
+		displayFolder: Capacity
+
+	/// Inmates as a share of rated bed capacity. Above 100% means the unit holds more inmates than it is rated for.
+	measure 'Occupancy Rate' = DIVIDE ( [Inmates], [Rated Capacity] )
+		formatString: 0.0%
+		displayFolder: Capacity
+
+	/// Unused rated beds. Negative when a unit is over its rating.
+	measure 'Beds Available' = [Rated Capacity] - [Inmates]
+		formatString: #,0
+		displayFolder: Capacity
+
+	/// Number of buildings in scope.
+	measure '# Buildings' = COUNTROWS ( 'Building' )
+		formatString: #,0
+		displayFolder: Counts
+
+	/// Buildings holding more inmates than their rated capacity at the latest month in context.
+	measure '# Overcrowded Buildings' =
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( 'Building'[Building ID] ),
+			        [Inmates] > [Rated Capacity]
+			    )
+			)
+		formatString: #,0
+		displayFolder: Counts
+
+	partition Building = m
+		mode: import
+		source =
+				let
+					Source = #table(
+						type table [#"Building ID" = text, #"Building" = text, #"Short Name" = text, #"Building Type" = text, #"Capacity" = Int64.Type, #"Operational Status" = text, #"Is Residential" = logical, #"Operational Note" = text],
+						{
+						{"housing-a", "Housing Unit A", "Unit A", "Medium Security Housing", 450, "Normal", true, "General population pod running inside rated capacity with stable incident volume."},
+						{"housing-b", "Housing Unit B", "Unit B", "Medium Security Housing", 500, "Over Capacity", true, "Operating 40 beds over rating on temporary bunks; intake diversions under review."},
+						{"housing-c", "Housing Unit C", "Unit C", "High Security Housing", 400, "Elevated Risk", true, "Highest incident volume in the complex despite the strongest officer coverage."},
+						{"housing-d", "Housing Unit D", "Unit D", "High Security Housing", 430, "Critical", true, "Over capacity and below the high-security supervision ratio — compounding risk."},
+						{"housing-e", "Housing Unit E", "Unit E", "Protective Custody", 320, "Normal", true, "Protective custody pod with low incident volume and headroom against capacity."},
+						{"housing-f", "Housing Unit F", "Unit F", "Protective Custody", 325, "Normal", true, "Lowest incident rate of the housing pods; absorbing overflow from Unit E."},
+						{"medical", "Medical Center", "Medical", "Healthcare", 100, "Normal", true, "Infirmary beds plus outpatient clinic; 36 beds available for surge."},
+						{"intake", "Intake Processing", "Intake", "Admissions", 150, "Normal", true, "Admissions and holding at the vehicle sallyport; throughput rising with bookings."},
+						{"education", "Education Center", "Education", "Rehabilitation", 300, "Normal", false, "Programming space; occupancy reflects inmates present during class blocks."},
+						{"recreation", "Recreation Center", "Recreation", "Recreation", 400, "Normal", false, "Yard and gymnasium; incident volume concentrated in afternoon movement."},
+						{"segregation", "Segregation Unit", "Segregation", "Restricted Housing", 120, "Elevated Risk", true, "Restricted housing; incident rate per capita is the highest in the complex."},
+						{"kitchen", "Central Kitchen", "Kitchen", "Food Services", 50, "Normal", false, "Inmate work detail under direct supervision; no incidents recorded this period."},
+						{"administration", "Administration Building", "Admin", "Administration", 200, "Normal", false, "Central control, records and command staff. No inmate housing assigned."},
+						{"maintenance", "Maintenance Facility", "Maintenance", "Operations", 40, "Normal", false, "Plant operations and warehousing with a small supervised work crew."}
+						}
+					)
+				in
+					Source

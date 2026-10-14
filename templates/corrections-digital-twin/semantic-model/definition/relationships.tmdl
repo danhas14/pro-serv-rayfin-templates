@@ -1,0 +1,11 @@
+relationship building_metrics_to_building
+	fromColumn: 'Building Metrics'.'Building ID'
+	toColumn: Building.'Building ID'
+
+relationship building_metrics_to_month
+	fromColumn: 'Building Metrics'.'Month Key'
+	toColumn: 'Month'.'Month Key'
+
+relationship facility_metrics_to_month
+	fromColumn: 'Facility Metrics'.'Month Key'
+	toColumn: 'Month'.'Month Key'

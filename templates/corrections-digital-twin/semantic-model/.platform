@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "North Valley Corrections Twin"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7b1f4d62-5a90-4c3e-8d17-2e6b9f0a4c58"
+  }
+}

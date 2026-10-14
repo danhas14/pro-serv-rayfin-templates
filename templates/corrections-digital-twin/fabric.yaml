@@ -1,0 +1,14 @@
+activeProfile: default
+profiles:
+  default:
+    semanticModels:
+      # North Valley Corrections Twin — the operational star schema this app reads.
+      #
+      # Replace both IDs with your own after deploying the model from
+      # `semantic-model/` (see this template's README). Then regenerate the
+      # typed binding so `src/fabric.generated.ts` matches:
+      #
+      #     npx fabric-app-data
+      correctionsTwin:
+        workspaceId: REPLACE_WITH_YOUR_WORKSPACE_ID
+        itemId: REPLACE_WITH_YOUR_SEMANTIC_MODEL_ID
